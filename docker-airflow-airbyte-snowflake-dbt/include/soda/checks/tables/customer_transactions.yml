@@ -1,0 +1,20 @@
+checks for customer_transactions:
+  - row_count > 0:
+      name: Table is not empty
+  - duplicate_count(transaction_id) = 0:
+      name: Duplicate transaction ids
+  - schema:
+      fail:
+        when required column missing:
+          - transaction_id
+          - user_id
+          - transaction_date
+          - amount
+  - missing_count(transaction_id) = 0:
+      name: Transaction ids cannot be null
+  - missing_count(user_id) = 0:
+      name: User ids cannot be null
+  - missing_count(transaction_date) = 0:
+      name: Transaction dates cannot be null
+  - missing_count(amount) = 0:
+      name: Amounts cannot be null
